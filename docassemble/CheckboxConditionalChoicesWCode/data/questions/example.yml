@@ -1,0 +1,39 @@
+question: |
+  where do you live?
+fields:
+  no label: home_is
+  input type: radio
+  choices:
+    - Anguilla
+    - New Hampshire
+    - Alaska 
+---
+mandatory: True
+question: |
+  Please tell me what you think.
+fields:
+  - "Select the fruits you like": likes_fruit
+    datatype: checkboxes
+    code: |
+      options
+  - "What is your favorite fruit overall?": favorite_fruit
+---
+code: |
+  if home_is == 'New Hampshire':
+    options = [
+                    {'apple': 'Apples'},
+                    {'peach': 'Peaches'},
+                    {'pear': 'Pears'}
+                  ]
+  elif home_is == 'Alaska':
+    options = [
+                    {'raspberry': 'Raspberries'},
+                    {'blueberry': 'Blueberries'}
+                  ]
+  else:
+    options = [
+                    {'soursop': 'Soursop'},
+                    {'mango': 'Mangos'},
+                    {'lime': 'Limes'}
+                  ]
+---
