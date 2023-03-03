@@ -14,38 +14,75 @@ fields:
   - no label: why_change
     datatype: checkboxes
     code: |
-      [
-        {'reconsider mistake': 'The judge made a mistake.'},
-        {'reconsider missed info': 'The judge did not get all the information.'},
-        {'reconsider misunderstood': 'The judge did not understand all the information.'},
-        {'reconsider mistake': 'The law changed since the judge made the decision.'},
-        {'appeal legal mistake': 'The judge made a legal mistake.'},
-        {'set aside clerical error': 'The court made a clerical mistake, like a typing error.'},
-        {'set aside mistake of fact': 'The court made a mistake of fact like the wrong value for property.'},
-        {'set aside new evidence': 'New evidence has come up.'},
-        {'set aside misconduct': 'The other parent has exhibited misconduct.'},
-        {'modify circumstances changed': 'Circumstances have changed.'},
-        {'modify parent to jail': 'The parent the children live with more than 4 days a week has gone to jail.'},
-        {'modify domestic violence': 'We have experienced domestic violence when exchanging our children.'},
-        {'modify other change': 'I have another major change that gives the judge good reason to change the custody order.'}
-      ]
+      options
+    none of the above: False
+---
+code: |
+  if forms_to_file == 'final_10':
+    options = [
+                    {'reconsider mistake': 'The judge made a mistake.'},
+                    {'reconsider missed info': 'The judge did not get all the information.'},
+                    {'reconsider misunderstood': 'The judge did not understand all the information.'},
+                    {'reconsider mistake': 'The law changed since the judge made the decision.'},
+                    {'appeal legal mistake': 'The judge made a legal mistake.'},
+                    {'set aside clerical error': 'The court made a clerical mistake, like a typing error.'},
+                    {'set aside mistake of fact': 'The court made a mistake of fact like the wrong value for property.'},
+                    {'set aside new evidence': 'New evidence has come up.'},
+                    {'set aside misconduct': 'The other parent has exhibited misconduct.'},
+                    {'modify circumstances changed': 'Circumstances have changed.'},
+                    {'modify parent to jail': 'The parent the children live with more than 4 days a week has gone to jail.'},
+                    {'modify domestic violence': 'We have experienced domestic violence when exchanging our children.'},
+                    {'modify other change': 'I have another major change that gives the judge good reason to change the custody order.'}
+                  ]
 
----  
+  if forms_to_file == 'final_15':
+    options = [
+                    {'reconsider mistake': 'The judge made a mistake.'},
+                    {'reconsider missed info': 'The judge did not get all the information.'},
+                    {'reconsider misunderstood': 'The judge did not understand all the information.'},
+                    {'reconsider mistake': 'The law changed since the judge made the decision.'},
+                    {'appeal legal mistake': 'The judge made a legal mistake.'},
+                    {'set aside clerical error': 'The court made a clerical mistake, like a typing error.'},
+                    {'set aside mistake of fact': 'The court made a mistake of fact like the wrong value for property.'},
+                    {'set aside new evidence': 'New evidence has come up.'},
+                    {'set aside misconduct': 'The other parent has exhibited misconduct.'},
+                    {'modify circumstances changed': 'Circumstances have changed.'},
+                    {'modify parent to jail': 'The parent the children live with more than 4 days a week has gone to jail.'},
+                    {'modify domestic violence': 'We have experienced domestic violence when exchanging our children.'},
+                    {'modify other change': 'I have another major change that gives the judge good reason to change the custody order.'}
+                  ]
+                  
+  if forms_to_file == 'final_16':
+    options = [
+                    {'set aside clerical error': 'The court made a clerical mistake, like a typing error.'},
+                    {'set aside mistake of fact': 'The court made a mistake of fact like the wrong value for property.'},
+                    {'set aside new evidence': 'New evidence has come up.'},
+                    {'set aside misconduct': 'The other parent has exhibited misconduct.'},
+                    {'modify circumstances changed': 'Circumstances have changed.'},
+                    {'modify parent to jail': 'The parent the children live with more than 4 days a week has gone to jail.'},
+                    {'modify domestic violence': 'We have experienced domestic violence when exchanging our children.'},
+                    {'modify other change': 'I have another major change that gives the judge good reason to change the custody order.'}
+                  ]
+---
 mandatory: True
 question: 
   You are within the deadline for filing these forms
 subquestion: |
   % if why_change.any_true('reconsider mistake','reconsider missed info', 'reconsider misunderstood','reconsider law changed'):
   Motion for Reconsideration
+  
   % endif
   % if why_change.any_true('set aside clerical error','set aside mistake of fact','set aside new evidence','set aside misconduct'):
   Motion to set aside
+  
   % endif
   % if why_change['appeal legal mistake']:
   Appeal
+  
   % endif
   % if why_change.any_true('modify circumstances changed','modify parent to jail','modify domestic violence','modify other change'):
   Motion to Modify
+  
   % endif
 ---
   
